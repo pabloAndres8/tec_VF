@@ -1,5 +1,6 @@
 package br.edu.uni7.tec_vf.controller;
 
+import br.edu.uni7.tec_vf.model.Clientes;
 import br.edu.uni7.tec_vf.model.Compras;
 import br.edu.uni7.tec_vf.services.ComprasServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ComprasController {
@@ -34,6 +36,13 @@ public class ComprasController {
     @RequestMapping(value = "compras", method = RequestMethod.POST)
     public Compras create(@RequestBody Compras compra){
         return service.create(compra);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "compras/{id}",method = RequestMethod.PUT)
+    public void update(@PathVariable UUID uuid, @RequestBody Compras compra){
+        compra.setUuid(uuid);
+        service.update(compra);
     }
 
     @ResponseBody
